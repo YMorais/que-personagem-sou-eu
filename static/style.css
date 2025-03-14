@@ -19,6 +19,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f6edb0;
     text-align: center;
+    height: 100vh;
 }
 
 header {
@@ -43,6 +44,7 @@ h1 {
 }
 
 main {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;

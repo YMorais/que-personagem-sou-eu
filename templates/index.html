@@ -1,39 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quem será você na Terra da Magia?✨</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <img src="gato.jpg" alt="">
-        <h1>Esse gato sou eu</h1>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo do site" class="logo">
+        <h1>Quem será você na Terra da Magia?✨</h1>
     </header>
+
     <main>
         <div class="container">
-            <div class="form">
-                <form action="/" method="post">
-                    <label>Informe o seu nome</label>
-                    <input type="text" name="nome" />
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
-            <div class="gato">
-                {% if not url_imagem %}
-                    <img src="" alt="" />
-                {% else %}
-                    <img src="{{url_imagem}}" />
-                    <p>{{ nome }}</p>
-                {% endif %}
-                {% if erro %}
-                    <p>{{ erro }}</p>
-                {% endif %}
-            </div>
+            <form method="post" class="form">
+                <label for="nome">Digite seu nome:</label>
+                <input type="text" id="nome" name="nome" required>
+                <button type="submit">Descobrir!</button>
+            </form>
+
+            {% if erro %}
+                <p class="erro">{{ erro }}</p>
+            {% endif %}
+
+            {% if nome and personagem %}
+                <div class="resultado">
+                    <p>{{ nome }}, você é o(a) <b>{{ personagem.name }}</b>!</p>
+                    {% if personagem.imageUrl %}
+                        <img src="{{ personagem.imageUrl }}" alt="Imagem de {{ personagem.name }}" class="imagem-personagem">
+                    {% else %}
+                        <p>Imagem não disponível.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
     </main>
+
     <footer>
-        <p>Desenvolvido por um gato. Miau!</p>
+        <p>Desenvolvido por uma fada madrinha. Bibbidi-bobbidi-boo! 🪄🧚‍♀️</p>
     </footer>
 </body>
 </html>

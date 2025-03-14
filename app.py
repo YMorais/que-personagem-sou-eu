@@ -1,28 +1,42 @@
 from flask import Flask, request, render_template
 import requests
+import random
 
 app = Flask(__name__)
 
-API_ENDPOINT = 'https://api.thecatapi.com/v1/images/search'
+API_ENDPOINT = 'https://api.disneyapi.dev/character'
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         return render_template('index.html')
 
     nome = request.form.get('nome', None)
 
-    if not nome:   #se nome estiver vazio, irá mostrar um erro
+    if not nome:
         return render_template('index.html', erro="Você precisa informar um nome!")
 
-    response = requests.get(API_ENDPOINT)
+    try:
+        response = requests.get(API_ENDPOINT)
+        response.raise_for_status()
+        dados = response.json()['data']
 
-    if response.status_code == 200:
-        dados = response.json()
-        url_imagem = dados[0]['url']
-        return render_template('index.html', nome=nome, url_imagem=url_imagem)
-    else:
-        return render_template('index.html', erro="Erro no sistema! O gato sumiu")
+        if not dados:
+            return render_template('index.html', erro="Oh não! O pato Donald se perdeu na confusão. Tente novamente!")
 
-if __name__== '__main__':
-    app.run(debug=True)
+        # Lógica para determinar o personagem (baseado no comprimento do nome)
+        comprimento_nome = len(nome)
+        qtdA = nome.lower().count('a')
+        indice_personagem = comprimento_nome % len(dados) + qtdA
+        personagem_sorteado = dados[indice_personagem]
+
+        return render_template('index.html', nome=nome, personagem=personagem_sorteado)
+
+    except requests.exceptions.RequestException as e:
+        return render_template('index.html', erro=f"Oh não! O pato Donald se perdeu na confusão. Tente novamente! (Erro técnico: {e})") # Mantendo o erro original
+    except (KeyError, IndexError) as e:
+        return render_template('index.html', erro=f"Oh não! O pato Donald se perdeu na confusão. Tente novamente! (Erro técnico: {e})") # Mantendo o erro original
+
+
+if __name__ == '__main__':
+    app.run()

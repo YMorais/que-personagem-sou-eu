@@ -1,13 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 @font-face {
     font-family: disney;
     src: url(fonts/waltograph42.otf);
-  }
-@font-face {
-    font-family: disney;
-    src: url(fonts/waltograph42.otf);
-  }
-  
+}
 
 * {
     margin: 0;
@@ -19,11 +15,12 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f6edb0;
     text-align: center;
-    height: 100vh;
+    min-height: 100vh; /* Garante que o body ocupe toda a tela */
+    display: flex;
+    flex-direction: column;
 }
 
 header {
-    background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(17,23,68,1) 0%, rgba(34,45,135,1) 12%, rgba(57,74,223,1) 51%, rgba(23,30,91,1) 86%, rgba(0,0,0,0.9) 100%);
     color: #FFDC64;
     display: flex;
@@ -44,7 +41,7 @@ h1 {
 }
 
 main {
-    flex: 1;
+    flex: 1; /* Faz com que o conteúdo ocupe o espaço disponível */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,6 +55,7 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 400px;
+    margin-bottom: 30px;
 }
 
 .form {
@@ -121,12 +119,11 @@ button:hover {
 }
 
 footer {
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(17,23,68,1) 0%, rgba(34,45,135,1) 12%, rgba(57,74,223,1) 51%, rgba(23,30,91,1) 86%, rgba(0,0,0,0.9) 100%);;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(17,23,68,1) 0%, rgba(34,45,135,1) 12%, rgba(57,74,223,1) 51%, rgba(23,30,91,1) 86%, rgba(0,0,0,0.9) 100%);
     color: #FFDC64;
     text-align: center;
-    padding: 30px;
-    margin-top: 30px;
+    padding: 20px;
     font-weight: bold;
     font-size: 18px;
+    margin-top: auto; /* Mantém o footer sempre no fim da página */
 }
